@@ -1,18 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+
+import Home from "./pages/Home"
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <h1>Hello World</h1>
-      <p>This is a paragraph</p>
-      <p>This is another paragraph</p>
-    </>
-  )
+	return (
+		<>
+			<Home />
+
+      <div
+				className="lg:mx-[12%] lg:mt-[-5rem] lg:mb-20 hidden lg:block"
+				id="ChatAnonim_lg"
+				data-aos="fade-up"
+				data-aos-duration="1200">
+				{/* <Chat /> */}
+			</div>
+
+		</>
+	)
 }
 
 export default App
