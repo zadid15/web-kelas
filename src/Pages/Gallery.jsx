@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import ButtonSend from "../components/ButtonSend"
-import ButtonRequest from "../components/ButtonRequest"
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage"
 import Modal from "@mui/material/Modal"
 import { Box, IconButton } from "@mui/material"
@@ -94,7 +92,23 @@ const Carousel = () => {
 			</div>
 			<div id="Carousel">
 				<Slider {...settings}>
-					{images.map((imageUrl, index) => (
+					<img src="/Background.jpg" alt="" onClick={() => handleImageClick(imageUrl)}
+							style={{ cursor: "pointer" }} />
+
+<img src="/Background.jpg" alt="" onClick={() => handleImageClick(imageUrl)}
+							style={{ cursor: "pointer" }} />
+
+<img src="/Background.jpg" alt="" onClick={() => handleImageClick(imageUrl)}
+							style={{ cursor: "pointer" }} />
+
+<img src="/Background.jpg" alt="" onClick={() => handleImageClick(imageUrl)}
+							style={{ cursor: "pointer" }} />
+
+<img src="/Background.jpg" alt="" onClick={() => handleImageClick(imageUrl)}
+							style={{ cursor: "pointer" }} />
+
+
+					{/* {images.map((imageUrl, index) => (
 						<img
 							key={index}
 							src={imageUrl}
@@ -102,13 +116,8 @@ const Carousel = () => {
 							onClick={() => handleImageClick(imageUrl)}
 							style={{ cursor: "pointer" }}
 						/>
-					))}
+					))} */}
 				</Slider>
-			</div>
-
-			<div className="flex justify-center items-center gap-6 text-base mt-5 lg:mt-8">
-				<ButtonSend />
-				<ButtonRequest />
 			</div>
 
 			<Modal
