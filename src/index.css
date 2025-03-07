@@ -312,16 +312,17 @@ body {
 	transform: translate(-50%, -50%);
 	width: 90%;
 	height: auto;
+	
+	background: rgba(255, 255, 255, 0.14);
 
-	/* background: rgba(255, 255, 255, 0.14); */
-	border-radius: 15pt;
+	border-radius: 20pt;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-	background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-	/* backdrop-filter: blur(10px); */
-	/* -webkit-backdrop-filter: blur(6.9px); */
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(6.9px);
 	border: 1px solid rgba(255, 255, 255, 0.09);
+	scrollbar-width: thin; /* Lebar scrollbar */
+	scrollbar-color: transparent; /* Warna scrollbar (track, thumb) */
+
 	padding: 16px;
 }
 
