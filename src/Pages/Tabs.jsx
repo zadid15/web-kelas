@@ -1,19 +1,18 @@
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import SwipeableViews from "react-swipeable-views"
-import { useTheme } from "@mui/material/styles"
-import AppBar from "@mui/material/AppBar"
-import Tabs from "@mui/material/Tabs"
-import Tab from "@mui/material/Tab"
-import Typography from "@mui/material/Typography"
-import Box from "@mui/material/Box"
-import StrukturKelas from "./StrukturKelas"
-import Schedule from "./Schedule"
-import { motion } from "framer-motion"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useSwipeable } from "react-swipeable";
+import { useTheme } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import StrukturKelas from "./StrukturKelas";
+import Schedule from "./Schedule";
+import { motion } from "framer-motion";
 
-// Fungsi TabPanel adalah komponen React yang digunakan untuk menampilkan konten tab.
 function TabPanel(props) {
-	const { children, value, index, ...other } = props
+	const { children, value, index, ...other } = props;
 
 	return (
 		<div
@@ -21,63 +20,66 @@ function TabPanel(props) {
 			hidden={value !== index}
 			id={`full-width-tabpanel-${index}`}
 			aria-labelledby={`full-width-tab-${index}`}
-			{...other}>
+			{...other}
+		>
 			{value === index && (
 				<Box sx={{ p: 0 }}>
 					<Typography>{children}</Typography>
 				</Box>
 			)}
 		</div>
-	)
+	);
 }
 
 TabPanel.propTypes = {
 	children: PropTypes.node,
 	index: PropTypes.number.isRequired,
 	value: PropTypes.number.isRequired,
-}
+};
 
-// Fungsi a11yProps digunakan untuk memberikan atribut aksesibilitas ke tab.
 function a11yProps(index) {
 	return {
 		id: `full-width-tab-${index}`,
 		"aria-controls": `full-width-tabpanel-${index}`,
-	}
+	};
 }
 
-// Komponen utama yang akan digunakan untuk menampilkan tab.
 export default function FullWidthTabs() {
-	const theme = useTheme()
-	const [value, setValue] = useState(0)
+	const theme = useTheme();
+	const [value, setValue] = useState(0);
 
-	// handleChange digunakan untuk mengubah nilai tab yang aktif.
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
+		setValue(newValue);
+	};
 
-	// handleChangeIndex digunakan untuk mengubah indeks tab yang aktif.
-	const handleChangeIndex = (index) => {
-		setValue(index)
-	}
+	// Konfigurasi swipe gesture
+	const handlers = useSwipeable({
+		onSwipedLeft: () => setValue((prev) => (prev < 1 ? prev + 1 : prev)),
+		onSwipedRight: () => setValue((prev) => (prev > 0 ? prev - 1 : prev)),
+		preventDefaultTouchmoveEvent: true,
+		trackMouse: true,
+	});
 
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 50 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.8, ease: "easeOut" }}
-			className="md:px-[10%]  md:mt-5 mt-8"
+			className="md:px-[10%] md:mt-5 mt-8"
 			id="Tabs"
 		>
 			<div
 				className="font-medium text-[1.6rem] md:text-[1.8rem] relative md:top-[2.8rem] top-[2.7rem] text-center text-white"
-				id="Glow">
+				id="Glow"
+			>
 				&
 			</div>
 			<Box sx={{ width: "100%" }}>
 				<AppBar
 					position="static"
 					sx={{ bgcolor: "transparent", boxShadow: "none" }}
-					className="px-[10%]">
+					className="px-[10%]"
+				>
 					<Tabs
 						value={value}
 						onChange={handleChange}
@@ -91,11 +93,12 @@ export default function FullWidthTabs() {
 							width: "auto",
 							margin: "0 auto",
 							"& .MuiTabs-indicator": {
-								borderBottom: "2px solid white", 
+								borderBottom: "2px solid white",
 							},
 						}}
 						className="font-medium text-white text-2xl text-center mt-16"
-						id="Glow">
+						id="Glow"
+					>
 						<Tab
 							label="Structure"
 							{...a11yProps(0)}
@@ -108,8 +111,7 @@ export default function FullWidthTabs() {
 								padding: "0.5rem",
 								marginRight: "0.7rem",
 							}}
-						
-							className="font-medium text-white text-2xl text-center mt-16 "
+							className="font-medium text-white text-2xl text-center mt-16"
 							id="Glow"
 						/>
 
@@ -125,15 +127,12 @@ export default function FullWidthTabs() {
 								padding: "0.5rem",
 								marginLeft: "0.7rem",
 							}}
-							className="font-medium text-white text-2xl text-center mt-16 "
+							className="font-medium text-white text-2xl text-center mt-16"
 							id="Glow"
 						/>
 					</Tabs>
 				</AppBar>
-				<SwipeableViews
-					axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-					index={value}
-					onChangeIndex={handleChangeIndex}>
+				<div {...handlers}>
 					<TabPanel value={value} index={0} dir={theme.direction}>
 						<motion.div
 							initial={{ opacity: 0, x: -50 }}
@@ -152,8 +151,8 @@ export default function FullWidthTabs() {
 							<Schedule />
 						</motion.div>
 					</TabPanel>
-				</SwipeableViews>
+				</div>
 			</Box>
 		</motion.div>
-	)
+	);
 }
