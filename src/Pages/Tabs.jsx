@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import SwipeableViews from "react-swipeable-views"
 import { useTheme } from "@mui/material/styles"
@@ -9,17 +9,10 @@ import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 import StrukturKelas from "./StrukturKelas"
 import Schedule from "./Schedule"
-import AOS from "aos"
-import "aos/dist/aos.css"
+import { motion } from "framer-motion"
 
 // Fungsi TabPanel adalah komponen React yang digunakan untuk menampilkan konten tab.
 function TabPanel(props) {
-	// useEffect digunakan untuk inisialisasi AOS ketika komponen pertama kali dimuat.
-	useEffect(() => {
-		AOS.init()
-		AOS.refresh()
-	}, [])
-
 	const { children, value, index, ...other } = props
 
 	return (
@@ -55,7 +48,7 @@ function a11yProps(index) {
 // Komponen utama yang akan digunakan untuk menampilkan tab.
 export default function FullWidthTabs() {
 	const theme = useTheme()
-	const [value, setValue] = React.useState(0)
+	const [value, setValue] = useState(0)
 
 	// handleChange digunakan untuk mengubah nilai tab yang aktif.
 	const handleChange = (event, newValue) => {
@@ -68,7 +61,13 @@ export default function FullWidthTabs() {
 	}
 
 	return (
-		<div className="md:px-[10%]  md:mt-5 mt-8" id="Tabs" data-aos="fade-up" data-aos-duration="800" >
+		<motion.div
+			initial={{ opacity: 0, y: 50 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.8, ease: "easeOut" }}
+			className="md:px-[10%]  md:mt-5 mt-8"
+			id="Tabs"
+		>
 			<div
 				className="font-medium text-[1.6rem] md:text-[1.8rem] relative md:top-[2.8rem] top-[2.7rem] text-center text-white"
 				id="Glow">
@@ -126,7 +125,6 @@ export default function FullWidthTabs() {
 								padding: "0.5rem",
 								marginLeft: "0.7rem",
 							}}
-							// className untuk menentukan gaya tab.
 							className="font-medium text-white text-2xl text-center mt-16 "
 							id="Glow"
 						/>
@@ -137,17 +135,25 @@ export default function FullWidthTabs() {
 					index={value}
 					onChangeIndex={handleChangeIndex}>
 					<TabPanel value={value} index={0} dir={theme.direction}>
-						<div>
+						<motion.div
+							initial={{ opacity: 0, x: -50 }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.5, ease: "easeOut" }}
+						>
 							<StrukturKelas />
-						</div>
+						</motion.div>
 					</TabPanel>
 					<TabPanel value={value} index={1} dir={theme.direction}>
-						<div>
+						<motion.div
+							initial={{ opacity: 0, x: 50 }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.5, ease: "easeOut" }}
+						>
 							<Schedule />
-						</div>
+						</motion.div>
 					</TabPanel>
 				</SwipeableViews>
 			</Box>
-		</div>
+		</motion.div>
 	)
 }
