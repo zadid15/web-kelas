@@ -89,7 +89,7 @@ export default function BoxTextAnonim() {
 					},
 				}}>
 				<Fade in={open}>
-					<Box className="" id="modal-container-chat">
+					<Box className="backdrop-blur-lg" id="modal-container-chat">
 						{/* Tambahkan tombol silang di kanan atas */}
 						<Button onClick={handleClose} style={{ position: "absolute", top: "2%", right: "0" , color: "white",opacity: "70%"}}>
 							<CloseIcon />
